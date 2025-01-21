@@ -1,0 +1,21 @@
+@import './fonts.css';
+
+:root {
+  --color-main: #231815;
+  --color-white: #FFFFFF;
+  --color-light-gray: #F5F5F5;
+  --font-main: "Lato";
+  --font-main-black: 'Lato Black';
+  --font-main-bold: 'Lato Bold';
+  --font-roboto: 'Roboto';
+  --font-korataki: 'Korataki';
+  --font-inter: 'Inter';
+}
+
+body {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
