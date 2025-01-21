@@ -35,7 +35,7 @@ const plumberNotify = (title) => {
 gulp.task('html', function() {
   return (
     gulp.src(['./src/html/**/*.html', '!./src/html/blocks/*.html'])
-		  .pipe(changed('./build/'))
+		  .pipe(changed('./docs/'))
 		  .pipe(plumber(plumberNotify('HTML')))
       .pipe(fileInclude({
         prefix: '@@',
@@ -49,14 +49,14 @@ gulp.task('html', function() {
       )
 		  .pipe(webpHTML())
 		  .pipe(htmlclean())
-		  .pipe(gulp.dest('./build/'))
+		  .pipe(gulp.dest('./docs/'))
   )
 });
 
 gulp.task('css', function() {
   return (
     gulp.src('./src/css/**/*.css')
-      .pipe(changed('./build/css'))
+      .pipe(changed('./docs/css'))
       .pipe(plumber(plumberNotify('CSS')))
       .pipe(autoprefixer())
       .pipe(webpCss())
@@ -70,20 +70,20 @@ gulp.task('css', function() {
       )
       .pipe(cleanCss())
       .pipe(rename({ suffix: '.min' }))
-      .pipe(gulp.dest('./build/css/'))
+      .pipe(gulp.dest('./docs/css/'))
   )
 });
 
 gulp.task('img', function() {
   return (
     gulp.src('./src/images/**/*')
-      .pipe(changed('./build/images'))
+      .pipe(changed('./docs/images'))
       .pipe(webp())
-      .pipe(gulp.dest('./build/images/'))
+      .pipe(gulp.dest('./docs/images/'))
 		  .pipe(gulp.src('./src/images/**/*'))
-		  .pipe(changed('./build/images/'))
+		  .pipe(changed('./docs/images/'))
 		  .pipe(imagemin({ verbose: true }))
-		  .pipe(gulp.dest('./build/images/'))
+		  .pipe(gulp.dest('./docs/images/'))
   )
 });
 
@@ -92,10 +92,10 @@ gulp.task('fonts', function () {
     gulp
 		.src('./src/fonts/**/*.ttf', {})
       .pipe(fonter({ formats: ['woff'], }))
-		  .pipe(gulp.dest('./build/fonts/'))
+		  .pipe(gulp.dest('./docs/fonts/'))
       .pipe(gulp.src('./src/fonts/**/*.ttf'))
       .pipe(ttf2woff2())
-      .pipe(gulp.dest('./build/fonts/'))
+      .pipe(gulp.dest('./docs/fonts/'))
       .pipe(
         plumber(
           notify.onError({ title: 'FONTS', message: 'Error: <%= error.message %>', })
@@ -107,18 +107,18 @@ gulp.task('fonts', function () {
 gulp.task('js', function () {
 	return (
     gulp.src('./src/js/*.js')
-		.pipe(changed('./build/js/'))
+		.pipe(changed('./docs/js/'))
 		.pipe(plumber(plumberNotify('JS')))
 		.pipe(babel())
 		.pipe(webpack(require('./webpack.config.js')))
-		.pipe(gulp.dest('./build/js/'))
+		.pipe(gulp.dest('./docs/js/'))
   ) 
 });
 
 gulp.task('clean', function(done) {
-  if(fs.existsSync('./build/')) {
+  if(fs.existsSync('./docs/')) {
     return (
-      gulp.src('./build/', { read: false})
+      gulp.src('./docs/', { read: false})
       .pipe(clean({ force: true }))
     )
   }
@@ -135,7 +135,7 @@ gulp.task('watch', function() {
 
 gulp.task('server', function () {
 	return(
-    gulp.src('./build/')
+    gulp.src('./docs/')
       .pipe(server({ livereload: true, open: true, }))
   ) 
 });
