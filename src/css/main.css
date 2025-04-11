@@ -203,6 +203,11 @@
     height: 320px;
   }
 
+  .card__image__picture {
+    width: 155px;
+    height: 230px;
+  }
+
   .card__promote-price, .card__title, .card__price {
     font-size: 16px;
   }
